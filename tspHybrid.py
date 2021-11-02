@@ -1,6 +1,7 @@
 from collections import defaultdict
 from dwave.system.samplers import DWaveSampler
 from dwave.system.composites import EmbeddingComposite
+from dwave_networkx.utils import binary_quadratic_model_sampler
 import networkx as nx
 import dwave_networkx
 #import dwave.inspector
@@ -26,6 +27,22 @@ bqm = dimod.dimod.BQM.from_qubo(Q)
 from dwave.system import LeapHybridSampler
 import numpy as np
 
-result = LeapHybridSampler().sample(bqm, label='TSP - Hybrid Computing 2')
+result = LeapHybridSampler().sample(bqm, label='TSP - Hybrid Computing 3')
 print("Found solution with {} nodes at energy {}.".format(np.sum(result.record.sample), 
                                                           result.first.energy))
+
+# use the sampler to find low energy states
+
+sample = result.first.sample
+
+route = [None]*len(G)
+for (city, time), val in sample.items():
+    if val:
+        route[time] = city
+
+start = None
+if start is not None and route[0] != start:
+    # rotate to put the start in front
+    idx = route.index(start)
+    route = route[-idx:] + route[:-idx]
+print(route)
