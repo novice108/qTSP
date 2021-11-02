@@ -46,3 +46,8 @@ if start is not None and route[0] != start:
     idx = route.index(start)
     route = route[-idx:] + route[:-idx]
 print(route)
+
+from networkx.algorithms import approximation as approx
+
+cycle = approx.greedy_tsp(G)
+print("path ", cycle)
