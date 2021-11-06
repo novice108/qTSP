@@ -41,8 +41,11 @@ print("path by  christofides ", path1)
 #path2 = approx.traveling_salesman_problem(G)
 #print("path by traveling_salesman_problem ", path2)
 
+sym_anng = approx.simulated_annealing_tsp(G, (list(G) + [next(iter(G))]))
+print("path simulated_annealing_tsp ", sym_anng)
+
 bqm = dimod.dimod.BQM.from_qubo(Q)
-print(bqm)
+#print(bqm)
 
 from dwave.system import LeapHybridSampler
 import numpy as np
