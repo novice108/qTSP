@@ -47,7 +47,7 @@ dwave.inspector.show(response)
 # Output route in directed graph
 H = nx.DiGraph()
 for z in range(len(marshrutik)-1):
-    H.add_edge(z, z+1)
+    H.add_edge(marshrutik[z], marshrutik[z+1])
 
 """
 print(H)
